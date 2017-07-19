@@ -30,6 +30,7 @@ class CallbackHandler(BaseHandler):
 
         user_info = oauth_client.get_user_info()
         self.session['open_id'] = user_info['openid']
+        self.session['union_id'] = user_info['unionid']
         user_model = self.model_config.first(UserModel, open_id=user_info['openid'])  # type:UserModel
         if user_model:
             user_model.profile = user_info['headimgurl']

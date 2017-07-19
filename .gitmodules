@@ -1,3 +1,6 @@
 [submodule "wechatpy"]
 	path = wechatpy
 	url = git@github.com:meizhuhanxiang/wechatpy.git
+[submodule "year4_ui"]
+	path = year4_ui
+	url = git@github.com:meizhuhanxiang/year4_ui.git

@@ -17,4 +17,4 @@ from model.detail import DetailModel
 __author__ = 'guoguangchuan'
 
 __all__ = ['List', 'Dict', 'Base', 'AddressModel', 'CommodityModel', 'OrderModel', 'AttributeModel', 'OptionModel',
-           'PublisherModel', 'RecommendModel', 'UserModel', 'ModelConfig', 'CityModel', 'DetailModel']
+           'PublisherModel', 'RecommendModel', 'UserModel', 'ModelConfig', 'CityModel', 'DetailModel', 'CheerModel']

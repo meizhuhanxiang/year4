@@ -37,13 +37,17 @@ class HandlersApplication(tornado.web.Application):
                     handlers.append((r"/api/%s/%s" % (sub_module, handler_split[0]), "%s.%s" % (module, attr)))
                     sys.stderr.write("routing uri %s to handler %s\n" % (
                         "/%s/%s" % (sub_module, handler_split[0]), "%s.%s" % (module, attr)))
+        handlers.append((r"/view/(.*)", tornado.web.StaticFileHandler,
+                         {"path": os.path.join(utils.config.get("global", "ui_path"), "view")}))
         return handlers
 
     def log_request(self, handler):
         if handler.get_status() == 0:
-            self.logger.info(handler.get_log_info())
+            #self.logger.info(handler.get_log_info())
+            pass
         else:
-            self.logger.error(handler.get_log_info())
+            #self.logger.error(handler.get_log_info())
+            pass
 
 
 def main():
@@ -67,7 +71,9 @@ def main():
             'redis_host': '127.0.0.1',
             'redis_port': 6379,
             'redis_pass': '',
-        }
+        },
+        static_path=os.path.join(utils.config.get("global", "ui_path"), "static"),
+        template_path=os.path.join(utils.config.get("global", "ui_path"), "templates")
     )
     application = HandlersApplication(handler, **settings)
     server = tornado.httpserver.HTTPServer(application)
