@@ -37,6 +37,7 @@ class UserModel(Base):
     company = Column(String(30), nullable=True)
     phone = Column(Integer, nullable=True)
     email = Column(String(30), nullable=True)
+    address = Column(String(30), nullable=True)
     is_del = Column(BOOLEAN, nullable=False, server_default='0', doc="逻辑删除, true(删除)|false(未删除)")
     update_time = Column(TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
     create_time = Column(TIMESTAMP, nullable=False, server_onupdate=text("CURRENT_TIMESTAMP"))
