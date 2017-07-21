@@ -31,10 +31,10 @@ def handler(fun):
                 self.session.save()
                 self.redirect('/api/user/oauth')
                 return
-            status = utils.config.get('global', 'finish')
-            if status == 'finish' and self.request.uri.find('/api/purchase/activity') != -1:
+            isfinish = utils.config.get('global', 'isfinish')
+            if isfinish == 'true' and self.request.uri.find('/api/purchase/activity') != -1:
                 self.set_header('Content-type', 'text/html')
-                self.render('purchase/activity.html', isfinish=status)
+                self.render('purchase/activity.html', isfinish=isfinish)
                 return 
             res = fun(self, *args, **kwargs)
             if isinstance(res, dict) and res.get('render'):

@@ -13,9 +13,9 @@ __email__ = 'ggc0402@qq.com'
 
 class IsfinishHandler(BaseHandler):
     def get(self):
-        finish = int(utils.config.get('global', 'finish'))
-        return {'status': finish}
+        isfinish = int(utils.config.get('global', 'finish'))
+        return {'isfinish': isfinish}
 
     def post(self):
-        finish = int(utils.config.get('global', 'finish'))
-        return {'status': finish}
+        isfinish = int(utils.config.get('global', 'isfinish'))
+        return {'status': isfinish}
