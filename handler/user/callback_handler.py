@@ -27,6 +27,7 @@ class CallbackHandler(BaseHandler):
         web_url = utils.config.get('global', 'url')
         oauth_client = WeChatOAuth(app_id, app_secret, '')
         oauth_client.fetch_access_token(code)
+        self.session['access_token'] = oauth_client.access_token
 
         user_info = oauth_client.get_user_info()
         self.session['open_id'] = user_info['openid']
