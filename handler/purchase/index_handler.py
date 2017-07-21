@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib2
 import traceback
+import utils
 from utils.code import *
 from handler.base.base_handler import BaseHandler, handler
 from handler.base.base_handler import BaseHandler
@@ -15,7 +16,7 @@ __email__ = 'ggc0402@qq.com'
 class IndexHandler(BaseHandler):
     @handler
     def get(self):
-
+        satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         self.logger.info('*' * 50)
         union_id = self.session.get('union_id', '')
         target_union_id = self.session.get('target_union_id', '')
@@ -26,20 +27,20 @@ class IndexHandler(BaseHandler):
         if union_id != target_union_id:
             cheer_models = self.model_config.all(CheerModel, target_union_id=target_union_id)
             cheer_num = len(cheer_models)
-            if cheer_num > 20:
-                cheer_num = 20
-            remain_cheer_num = 20 - cheer_num
+            if cheer_num > satisfy_cheer_num:
+                cheer_num = satisfy_cheer_num
+            remain_cheer_num = satisfy_cheer_num - cheer_num
             self.session['target_union_id'] = ''
             self.set_header('Content-type', 'text/html')
             self.render('purchase/cheer.html', union_id=union_id, target_union_id=target_union_id,
-                        remain_cheer_num=remain_cheer_num, satisfy_cheer_num=20)
+                        remain_cheer_num=remain_cheer_num, satisfy_cheer_num=satisfy_cheer_num)
         else:
             cheer_models = self.model_config.all(CheerModel, target_union_id=union_id)
             cheer_num = len(cheer_models)
             self.logger.info('*****************%s' % cheer_num)
-            if cheer_num > 20:
-                cheer_num = 20
-            remain_cheer_num = 20 - cheer_num
+            if cheer_num > satisfy_cheer_num:
+                cheer_num = satisfy_cheer_num
+            remain_cheer_num = satisfy_cheer_num - cheer_num
             user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))
             status = 'cheer_undo'
             if remain_cheer_num <= 0:
@@ -49,7 +50,7 @@ class IndexHandler(BaseHandler):
                 status = 'cheer_payed'
             self.set_header('Content-type', 'text/html')
             self.render('purchase/index.html', union_id=union_id, remain_cheer_num=remain_cheer_num,
-                        satisfy_cheer_num=20, status=status)
+                        satisfy_cheer_num=satisfy_cheer_num, status=status)
 
         res = {
             'render': True

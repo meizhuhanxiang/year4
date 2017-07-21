@@ -27,10 +27,13 @@ def handler(fun):
             if not self.session.get('open_id', ''):
                 web_url = utils.config.get('global', 'url')
                 self.session['current_url'] = os.path.join(web_url, self.request.uri)
-                self.logger.info('22222222222%s' % os.path.join(web_url, self.request.uri))
+                self.logger.info('%s' % os.path.join(web_url, self.request.uri))
                 self.session.save()
                 self.redirect('/api/user/oauth')
                 return
+            status = int(utils.config.get('global', 'finish'))
+            if status == 'finish' and self.request.uri.find('/api/purchase/activity') != -1:
+                self.redirect('/api/purchase/activity')
             res = fun(self, *args, **kwargs)
             if isinstance(res, dict) and res.get('render'):
                 return

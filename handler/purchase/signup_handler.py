@@ -6,6 +6,8 @@ from handler.base.base_handler import BaseHandler, handler
 from handler.base.base_handler import BaseHandler
 from model.user import UserModel
 from model.address import AddressModel
+from model.order import OrderModel
+from model.user import UserModel
 
 __author__ = 'guoguangchuan'
 __email__ = 'ggc0402@qq.com'
@@ -34,6 +36,11 @@ class SignupHandler(BaseHandler):
         name = self.get_argument('name')
         phone = self.get_argument('phone')
         address = self.get_argument('address')
+        user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))  # type:UserModel
+        order_model = self.model_config.first(OrderModel, user_id=user_model.id,
+                                              status=OrderModel.STATUS_WAIT_SEND)  # type: OrderModel
+        if order_model:
+            raise Exception('对不起，一个用户只能购买一张票')
         user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))  # type:UserModel
         user_model.name = name
         user_model.phone = phone
