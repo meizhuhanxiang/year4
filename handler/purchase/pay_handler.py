@@ -30,8 +30,10 @@ class PayHandler(BaseHandler):
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         cheer_models = self.model_config.all(CheerModel, target_union_id=user_model.union_id)
         price = 0.02
+        discot = 'false'
         if len(cheer_models) >= satisfy_cheer_num:
             price = 0.01
+            discot = 'ture'
         desc = '宇珩科技有限公司街舞社四周年庆门票预售'
         body = u'棒棒预售-%s' % desc
         web_url = utils.config.get('global', 'url')
@@ -50,7 +52,8 @@ class PayHandler(BaseHandler):
         appapi_params = wechat_jsapi_client.get_jsapi_params(uni_res['prepay_id'])
         res = {
             'appapi_params': appapi_params,
-            'out_trade_no': out_trade_no
+            'out_trade_no': out_trade_no,
+            'discot': discot
         }
         self.model_config.add(order_model)
         return res
