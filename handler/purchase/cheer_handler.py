@@ -16,7 +16,7 @@ class CheerHandler(BaseHandler):
     def post(self):
         union_id = self.get_argument('union_id', '')
         target_union_id = self.get_argument('target_union_id', '')
-        cheer_model = self.model_config(CheerModel, union_id=union_id, target_union_id=target_union_id)
+        cheer_model = self.model_config.first(CheerModel, union_id=union_id, target_union_id=target_union_id)
         if cheer_model:
             raise Exception('您已经加过油, 不能重复添加')
 

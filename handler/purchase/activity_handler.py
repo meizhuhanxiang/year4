@@ -15,8 +15,8 @@ class ActivityHandler(BaseHandler):
     @handler
     def get(self):
         self.set_header('Content-type', 'text/html')
-        status = utils.config.get('global', 'finish')
-        self.render('purchase/activity.html', status=status)
+        isfinish = utils.config.get('global', 'isfinish')
+        self.render('purchase/activity.html', isfinish=isfinish)
         res = {
             'render': True
         }
