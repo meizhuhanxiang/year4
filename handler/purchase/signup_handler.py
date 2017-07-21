@@ -17,7 +17,6 @@ class SignupHandler(BaseHandler):
         name = self.get_argument('name')
         phone = self.get_argument('phone')
         address = self.get_argument('address')
-        discont = self.get_argument('discont')
         user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id')) #type:UserModel
         user_model.name = name
         user_model.phone = phone
