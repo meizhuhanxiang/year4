@@ -5,6 +5,8 @@ from utils.code import *
 from handler.base.base_handler import BaseHandler, handler
 from handler.base.base_handler import BaseHandler
 from model.cheer import CheerModel
+from model.order import OrderModel
+from model.user import UserModel
 
 __author__ = 'guoguangchuan'
 __email__ = 'ggc0402@qq.com'
@@ -38,9 +40,16 @@ class IndexHandler(BaseHandler):
             if cheer_num > 20:
                 cheer_num = 20
             remain_cheer_num = 20 - cheer_num
+            user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))
+            status = 'cheer_undo'
+            if remain_cheer_num <= 0:
+                status = 'cheer_done'
+            payed_order = self.model_config.first(OrderModel, user_id=user_model.id, status=OrderModel.STATUS_WAIT_SEND)
+            if payed_order:
+                status = 'cheer_payed'
             self.set_header('Content-type', 'text/html')
             self.render('purchase/index.html', union_id=union_id, remain_cheer_num=remain_cheer_num,
-                        satisfy_cheer_num=20)
+                        satisfy_cheer_num=20, status=status)
 
         res = {
             'render': True
