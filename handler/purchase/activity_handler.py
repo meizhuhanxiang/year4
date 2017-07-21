@@ -25,13 +25,18 @@ class ActivityHandler(BaseHandler):
         if cheer_num > satisfy_cheer_num:
             cheer_num = satisfy_cheer_num
         remain_cheer_num = satisfy_cheer_num - cheer_num
+        discot = 'null'
         status = 'cheer_undo'
         if remain_cheer_num <= 0:
             status = 'cheer_done'
         payed_order = self.model_config.first(OrderModel, user_id=user_model.id, status=OrderModel.STATUS_WAIT_SEND)
         if payed_order:
             status = 'cheer_payed'
-        self.render('purchase/activity.html', isfinish=isfinish)
+            if remain_cheer_num <= 0:
+                discot = 'true'
+            else:
+                discot = 'false'
+        self.render('purchase/activity.html', isfinish=isfinish, status=status, discot=discot)
         res = {
             'render': True
         }
