@@ -30,7 +30,7 @@ def handler(fun):
             if union_id:
                 pv_model = PvModel(union_id=union_id, url=curren_url)
                 self.model_config.add(pv_model)
-            if not self.session.get('open_id', ''):
+            if not self.session.get('union_id', ''):
                 web_url = utils.config.get('global', 'url')
                 self.session['current_url'] = os.path.join(web_url, self.request.uri)
                 self.logger.info('%s' % os.path.join(web_url, self.request.uri))
