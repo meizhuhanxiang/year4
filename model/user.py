@@ -35,7 +35,7 @@ class UserModel(Base):
     name = Column(String(16), nullable=True)
     job = Column(String(30), nullable=True)
     company = Column(String(30), nullable=True)
-    phone = Column(Integer, nullable=True)
+    phone = Column(String(30), nullable=True)
     email = Column(String(30), nullable=True)
     address = Column(String(30), nullable=True)
     is_del = Column(BOOLEAN, nullable=False, server_default='0', doc="逻辑删除, true(删除)|false(未删除)")
