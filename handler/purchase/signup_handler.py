@@ -33,11 +33,11 @@ class SignupHandler(BaseHandler):
         user_model.address = address
         cheer_models = self.model_config.all(CheerModel, target_union_id=user_model.union_id)
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
-        price = 0.02
+        price = round(float(utils.config.get('global', 'price')), 2)
         discot = 'false'
         if len(cheer_models) >= satisfy_cheer_num:
-            price = 0.01
-            discot = 'true'
+            price = round(float(utils.config.get('global', 'discot_price')), 2)
+            discot = 'ture'
         self.set_header('Content-type', 'text/html')
         self.render('purchase/pay.html', name=name, phone=phone, address=address, price=price, discot=discot)
         res = {

@@ -29,10 +29,10 @@ class PayHandler(BaseHandler):
         order_model = OrderModel(user_id=user_model.id, status=OrderModel.STATUS_WAIT_PAY, out_trade_no=out_trade_no)
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         cheer_models = self.model_config.all(CheerModel, target_union_id=user_model.union_id)
-        price = 0.02
+        price = round(float(utils.config.get('global', 'price')), 2)
         discot = 'false'
         if len(cheer_models) >= satisfy_cheer_num:
-            price = 0.01
+            price = round(float(utils.config.get('global', 'discot_price')), 2)
             discot = 'ture'
         desc = '宇珩科技有限公司街舞社四周年庆门票预售'
         body = u'棒棒预售-%s' % desc
