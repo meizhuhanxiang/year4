@@ -37,7 +37,7 @@ class SignupHandler(BaseHandler):
         discot = 'false'
         if len(cheer_models) >= satisfy_cheer_num:
             price = 0.01
-            discot = 'ture'
+            discot = 'true'
         self.set_header('Content-type', 'text/html')
         self.render('purchase/pay.html', name=name, phone=phone, address=address, price=price, discot=discot)
         res = {
