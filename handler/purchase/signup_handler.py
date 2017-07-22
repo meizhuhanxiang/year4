@@ -26,7 +26,7 @@ class SignupHandler(BaseHandler):
         order_model = self.model_config.first(OrderModel, user_id=user_model.id,
                                               status=OrderModel.STATUS_WAIT_SEND)  # type: OrderModel
         if order_model:
-            raise ServerError(ServerError.NO_REPEAT_CHEER)
+            raise ServerError(ServerError.NO_REPEAT_BUY)
         user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))  # type:UserModel
         user_model.name = name
         user_model.phone = phone
