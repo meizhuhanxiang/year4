@@ -45,6 +45,7 @@ class PayHandler(BaseHandler):
         mch_key = wechat_conf['mch_key']
         wechat_client = WeChatPay(app_id, key, mchid, mch_cert=mch_cert, mch_key=mch_key)  # type:WeChatOrder
         wechat_order_client = wechat_client.order
+        order_model.price=price
         uni_res = wechat_order_client.create('JSAPI', body, int(price * 100),
                                              '%s/api/purchase/notify' % web_url,
                                              user_id=self.session['open_id'], out_trade_no=out_trade_no)

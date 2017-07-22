@@ -9,6 +9,7 @@ from sqlalchemy import Column
 from sqlalchemy import String
 from sqlalchemy import Integer
 from sqlalchemy import TIMESTAMP
+from sqlalchemy import Float
 from sqlalchemy import PrimaryKeyConstraint
 from sqlalchemy import BOOLEAN
 from sqlalchemy import text
@@ -27,6 +28,7 @@ class OrderModel(Base):
     order_no = Column(String(128), nullable=True, doc="货物订单号")
     out_trade_no = Column(String(128), nullable=True, doc="统一支付订单号")
     cart_time = Column(TIMESTAMP, nullable=True, doc="加入购物车时间")
+    price = Column(Float(precision=2), nullable=True, doc="价格")
     pay_time = Column(TIMESTAMP, nullable=True, doc="付款时间")
     is_del = Column(BOOLEAN, nullable=False, server_default='0', doc="逻辑删除, true(删除)|false(未删除)")
     update_time = Column(TIMESTAMP, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
