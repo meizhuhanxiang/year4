@@ -48,7 +48,7 @@ class ServerError(BaseError):
     NO_REPEAT_BUY = (2, 'only on tickit', '对不起, 一个用户只能购买一张票')
     NO_REPEAT_CHEER = (3, 'only on tickit', '您已经加过油, 不能重复加油')
     CHEER_IS_DONE = (4, 'only on tickit', '您的好友已经集赞完成, 非常感谢')
-    NO_DISCOT_BUY = (5, 'only on tickit', '您的好友是个土豪, 已经全款购票')
+    NO_DISCOT_BUY = (5, 'only on tickit', '您的好友是个土豪, 已经全款购票, 不需要加油啦')
 
 
 class SyncError(BaseError):
