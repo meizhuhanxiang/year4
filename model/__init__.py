@@ -13,8 +13,9 @@ from model.city import CityModel
 from model.base import List, Dict, Base
 from model.config import Configure as ModelConfig
 from model.detail import DetailModel
+from model.pv import PvModel
 
 __author__ = 'guoguangchuan'
 
 __all__ = ['List', 'Dict', 'Base', 'AddressModel', 'CommodityModel', 'OrderModel', 'AttributeModel', 'OptionModel',
-           'PublisherModel', 'RecommendModel', 'UserModel', 'ModelConfig', 'CityModel', 'DetailModel', 'CheerModel']
+           'PublisherModel', 'RecommendModel', 'UserModel', 'ModelConfig', 'CityModel', 'DetailModel', 'CheerModel', 'PvMoodel']

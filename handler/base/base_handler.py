@@ -14,6 +14,7 @@ from utils.exception import *
 from utils.logger import api_logger
 from model import ModelConfig
 from utils import session
+from model.pv import PvModel
 
 
 def handler(fun):
@@ -24,6 +25,11 @@ def handler(fun):
             # if not self.session.get('open_id', ''):
             #     if self.__class__.__name__ != 'CheckloginHandler':
             #         raise ServerError(ServerError.USER_NO_LOGIN)
+            curren_url = self.request.uri
+            union_id = self.session.get('union', '')
+            if union_id:
+                pv_model = PvModel(union_id=union_id, url=curren_url)
+                self.model_config.add(pv_model)
             if not self.session.get('open_id', ''):
                 web_url = utils.config.get('global', 'url')
                 self.session['current_url'] = os.path.join(web_url, self.request.uri)
@@ -35,7 +41,7 @@ def handler(fun):
             if isfinish == 'true' and self.request.uri.find('/api/purchase/activity') != -1:
                 self.set_header('Content-type', 'text/html')
                 self.render('purchase/activity.html', isfinish=isfinish)
-                return 
+                return
             res = fun(self, *args, **kwargs)
             if isinstance(res, dict) and res.get('render'):
                 return
