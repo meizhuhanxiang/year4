@@ -19,7 +19,7 @@ __author__ = 'guoguangchuan'
 
 
 class PvModel(Base):
-    __tablename__ = 'order'
+    __tablename__ = 'pv'
 
     id = Column(Integer, primary_key=True)
     url = Column(String(30), nullable=True, doc="路由")
