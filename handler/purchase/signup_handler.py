@@ -43,6 +43,7 @@ class SignupHandler(BaseHandler):
         res = {
             'render': True
         }
+        self.model_config.commit()
         return res
 
     @handler
@@ -73,4 +74,5 @@ class SignupHandler(BaseHandler):
             'price': price,
             'discot': discot
         }
+        self.model_config.commit()
         return res
