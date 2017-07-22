@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib2
 import traceback
+import utils
 from utils.code import *
 from handler.base.base_handler import BaseHandler, handler
 from handler.base.base_handler import BaseHandler
@@ -8,6 +9,7 @@ from model.user import UserModel
 from model.address import AddressModel
 from model.order import OrderModel
 from model.user import UserModel
+from model.cheer import CheerModel
 from utils.exception import ServerError
 
 __author__ = 'guoguangchuan'
@@ -46,10 +48,18 @@ class SignupHandler(BaseHandler):
         user_model.name = name
         user_model.phone = phone
         user_model.address = address
+        cheer_models = self.model_config.all(CheerModel, target_union_id=user_model.union_id)
+        satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
+        price = 0.02
+        discot = 'false'
+        if len(cheer_models) >= satisfy_cheer_num:
+            price = 0.01
+            discot = 'ture'
         res = {
             'name': name,
             'phone': phone,
             'address': address,
-            'price': 1
+            'price': price,
+            'discot': discot
         }
         return res
