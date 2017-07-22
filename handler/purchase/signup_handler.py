@@ -38,7 +38,7 @@ class SignupHandler(BaseHandler):
         if len(cheer_models) >= satisfy_cheer_num:
             price = 0.01
             discot = 'ture'
-        self.render('purchase/pay.html', name=name, phone=phone, address=address, price=price, discot)
+        self.render('purchase/pay.html', name=name, phone=phone, address=address, price=price, discot=discot)
         res = {
             'render': True
         }
