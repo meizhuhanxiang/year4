@@ -26,7 +26,7 @@ def handler(fun):
             #     if self.__class__.__name__ != 'CheckloginHandler':
             #         raise ServerError(ServerError.USER_NO_LOGIN)
             curren_url = self.request.uri
-            union_id = self.session.get('union', '')
+            union_id = self.session.get('union_id', '')
             if union_id:
                 pv_model = PvModel(union_id=union_id, url=curren_url)
                 self.model_config.add(pv_model)
