@@ -45,17 +45,14 @@ class NetworkError(BaseError):
 class ServerError(BaseError):
     BASE_CODE = 30000
     ARGS_MISSING = (1, '{args} are required.', '缺少参数{args}')
-    ARGS_ILLEGAL = (2, 'arguments illegal or not complete', '参数不合法或者不完整')
-    ADDRESS_ID_NO_EXIST = (3, 'address_id: {args} is not exist', '地址id:{args} 不存在')
-    ORDER_ID_ILLEGEL = (4, 'order_id: {args} is illegel', '订单id:{args} 不合法')
-    USER_NO_LOGIN = (5, 'user is not logined', '用户未登陆')
-    CART_ADD_IDS_NOT_MATCH = (6, 'cart add ids is not match', '添加购物车提供的id不合法')
-    ORDER_STATUS_ILLEGAL = (6, 'order status {args} is not illegal', '订单查询状态参数"{args}"不存在或不合法')
+    NO_REPEAT_BUY = (2, 'only on tickit', '对不起，一个用户只能购买一张票')
+    NO_REPEAT_CHEER = (3, 'only on tickit', '您已经加过油, 不能重复加油')
+    CHEER_IS_DONE = (4, 'only on tickit', '您的好友已经集赞完成，非常感谢')
 
 
 class SyncError(BaseError):
     BASE_CODE = 40000
-    ARG_MISSING = (1, 'Arg missing: {arg}', '缺失参数: {arg}')
+    ARG_MISSING = (1, 'only on tickit', '对不起，一个用户只能购买一张票')
 
 
 if __name__ == '__main__':

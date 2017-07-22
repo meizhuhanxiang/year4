@@ -37,7 +37,6 @@ class IndexHandler(BaseHandler):
         else:
             cheer_models = self.model_config.all(CheerModel, target_union_id=union_id)
             cheer_num = len(cheer_models)
-            self.logger.info('*****************%s' % cheer_num)
             if cheer_num > satisfy_cheer_num:
                 cheer_num = satisfy_cheer_num
             remain_cheer_num = satisfy_cheer_num - cheer_num

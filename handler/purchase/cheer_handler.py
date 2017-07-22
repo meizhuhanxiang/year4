@@ -6,6 +6,7 @@ from utils.code import *
 from handler.base.base_handler import BaseHandler, handler
 from handler.base.base_handler import BaseHandler
 from model.cheer import CheerModel
+from utils.exception import ServerError
 
 __author__ = 'guoguangchuan'
 __email__ = 'ggc0402@qq.com'
@@ -18,13 +19,13 @@ class CheerHandler(BaseHandler):
         target_union_id = self.get_argument('target_union_id', '')
         cheer_model = self.model_config.first(CheerModel, union_id=union_id, target_union_id=target_union_id)
         if cheer_model:
-            raise Exception('您已经加过油, 不能重复添加')
+            raise ServerError(ServerError.NO_REPEAT_CHEER)
 
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         cheer_models = self.model_config.all(CheerModel, target_union_id=target_union_id)
         target_cheer_num = len(cheer_models)
         if target_cheer_num > satisfy_cheer_num:
-            raise Exception('您的好友已经集赞完成，非常感谢')
+            raise ServerError(ServerError.CHEER_IS_DONE)
 
         cheer_model = CheerModel(union_id=union_id, target_union_id=target_union_id)
         self.model_config.add(cheer_model)

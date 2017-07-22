@@ -25,7 +25,7 @@ class PayHandler(BaseHandler):
         order_model = self.model_config.first(OrderModel, user_id=user_model.id,
                                               status=OrderModel.STATUS_WAIT_SEND)  # type: OrderModel
         if order_model:
-            raise Exception('对不起，一个用户只能购买一张票')
+            raise ServerError(ServerError.NO_REPEAT_BUY)
         order_model = OrderModel(user_id=user_model.id, status=OrderModel.STATUS_WAIT_PAY, out_trade_no=out_trade_no)
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         cheer_models = self.model_config.all(CheerModel, target_union_id=user_model.union_id)
