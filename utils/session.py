@@ -93,8 +93,8 @@ class SessionManager(object):
         return session
 
     def set(self, request_handler, session):
-        request_handler.set_secure_cookie("session_id", session.session_id, domain='.gsteps.cn')
-        request_handler.set_secure_cookie("verification", session.hmac_key, domain='.gsteps.cn')
+        request_handler.set_secure_cookie("session_id", session.session_id, domain='.tueye.com')
+        request_handler.set_secure_cookie("verification", session.hmac_key, domain='.tueye.com')
 
         session_data = ujson.dumps(dict(session.items()))
 
