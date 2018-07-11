@@ -24,6 +24,7 @@ class PayHandler(BaseHandler):
         user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))  # type:UserModel
         order_model = self.model_config.first(OrderModel, user_id=user_model.id,
                                               status=OrderModel.STATUS_WAIT_SEND)  # type: OrderModel
+        #raise ServerError(ServerError.FINISHED)
         if order_model:
             raise ServerError(ServerError.NO_REPEAT_BUY)
         order_model = OrderModel(user_id=user_model.id, status=OrderModel.STATUS_WAIT_PAY, out_trade_no=out_trade_no)
