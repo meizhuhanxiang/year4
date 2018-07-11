@@ -13,6 +13,7 @@ from traceback import format_exc
 from utils.exception import *
 from utils.logger import api_logger
 from model import ModelConfig
+from model.user import UserModel
 from utils import session
 from model.pv import PvModel
 
@@ -31,7 +32,8 @@ def handler(fun):
                 pv_model = PvModel(union_id=union_id, url=curren_url)
                 self.model_config.add(pv_model)
             self.logger.info(self.get_current_user())
-            if not self.session.get('union_id', ''):
+            user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))
+            if not self.session.get('union_id', '') or not user_model:
                 web_url = utils.config.get('global', 'url')
                 self.session['current_url'] = os.path.join(web_url, self.request.uri)
                 self.logger.info('%s' % os.path.join(web_url, self.request.uri))
