@@ -17,6 +17,7 @@ class IndexHandler(BaseHandler):
     @handler
     def get(self):
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
+        pre_tittle = utils.config.get('global', 'pre_tittle')
         self.logger.info('*' * 50)
         union_id = self.session.get('union_id', '')
         target_union_id = self.session.get('target_union_id', '')
@@ -33,7 +34,7 @@ class IndexHandler(BaseHandler):
             self.session['target_union_id'] = ''
             self.set_header('Content-type', 'text/html')
             self.render('purchase/cheer.html', union_id=union_id, target_union_id=target_union_id,
-                        remain_cheer_num=remain_cheer_num, satisfy_cheer_num=satisfy_cheer_num)
+                        remain_cheer_num=remain_cheer_num, satisfy_cheer_num=satisfy_cheer_num, pre_tittle=pre_tittle)
         else:
             cheer_models = self.model_config.all(CheerModel, target_union_id=union_id)
             cheer_num = len(cheer_models)
@@ -49,7 +50,7 @@ class IndexHandler(BaseHandler):
                 status = 'cheer_payed'
             self.set_header('Content-type', 'text/html')
             self.render('purchase/index.html', union_id=union_id, remain_cheer_num=remain_cheer_num,
-                        satisfy_cheer_num=satisfy_cheer_num, status=status)
+                        satisfy_cheer_num=satisfy_cheer_num, status=status, pre_tittle=pre_tittle)
 
         res = {
             'render': True

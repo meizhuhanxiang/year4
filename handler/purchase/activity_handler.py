@@ -16,6 +16,7 @@ __email__ = 'ggc0402@qq.com'
 class ActivityHandler(BaseHandler):
     @handler
     def get(self):
+        pre_tittle = utils.config.get('global', 'pre_tittle')
         self.set_header('Content-type', 'text/html')
         isfinish = utils.config.get('global', 'isfinish')
         user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))
@@ -36,7 +37,7 @@ class ActivityHandler(BaseHandler):
                 discot = 'true'
             else:
                 discot = 'false'
-        self.render('purchase/activity.html', isfinish=isfinish, status=status, discot=discot)
+        self.render('purchase/activity.html', isfinish=isfinish, status=status, discot=discot, pre_tittle=pre_tittle)
         res = {
             'render': True
         }
