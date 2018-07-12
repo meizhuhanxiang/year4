@@ -34,12 +34,13 @@ class SignupHandler(BaseHandler):
         cheer_models = self.model_config.all(CheerModel, target_union_id=user_model.union_id)
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         price = round(float(utils.config.get('global', 'price')), 2)
+        original_price = price
         discot = 'false'
         if len(cheer_models) >= satisfy_cheer_num:
             price = round(float(utils.config.get('global', 'discot_price')), 2)
             discot = 'ture'
         self.set_header('Content-type', 'text/html')
-        self.render('purchase/pay.html', name=name, phone=phone, address=address, price=price, discot=discot)
+        self.render('purchase/pay.html', name=name, phone=phone, address=address, price=price, discot=discot, original_price=original_price)
         res = {
             'render': True
         }
