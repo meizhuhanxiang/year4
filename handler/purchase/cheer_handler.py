@@ -26,7 +26,7 @@ class CheerHandler(BaseHandler):
         satisfy_cheer_num = int(utils.config.get('global', 'satisfy_cheer_num'))
         cheer_models = self.model_config.all(CheerModel, target_union_id=target_union_id)
         user_model = self.model_config.first(UserModel, union_id=target_union_id)
-        order_model = self.model_config.first(OrderModel, user_id=user_model.id)
+        order_model = self.model_config.first(OrderModel, user_id=user_model.id, status=4)
         target_cheer_num = len(cheer_models)
         if target_cheer_num >= satisfy_cheer_num:
             raise ServerError(ServerError.CHEER_IS_DONE)

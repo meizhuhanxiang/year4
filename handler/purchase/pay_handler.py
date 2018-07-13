@@ -35,7 +35,7 @@ class PayHandler(BaseHandler):
         if len(cheer_models) >= satisfy_cheer_num:
             price = round(float(utils.config.get('global', 'discot_price')), 2)
             discot = 'ture'
-        desc = '宇珩科技有限公司街舞社四周年庆门票预售'
+        desc = '宇珩科技有限公司街舞社5周年庆门票预售'
         body = u'棒棒预售-%s' % desc
         web_url = utils.config.get('global', 'url')
         wechat_conf = utils.config.get_section('wechat')
