@@ -16,6 +16,7 @@ from model import ModelConfig
 from model.user import UserModel
 from utils import session
 from model.pv import PvModel
+from model import OrderModel
 
 
 def handler(fun):
@@ -41,6 +42,10 @@ def handler(fun):
                 self.redirect('/api/user/oauth')
                 return
             isfinish = utils.config.get('global', 'isfinish')
+            order_models = self.model_config.all(OrderModel, status=OrderModel.STATUS_WAIT_SEND)  
+            ticket_count = int(utils.config.get('global', 'ticket_count'))
+            if len(order_models) >= ticket_count:
+                isfinish = 'true'
             if isfinish == 'true' and self.request.uri.find('/api/purchase/activity') != -1:
                 self.set_header('Content-type', 'text/html')
                 pre_tittle = utils.config.get('global', 'pre_tittle') 
