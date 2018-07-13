@@ -46,6 +46,9 @@ def handler(fun):
             ticket_count = int(utils.config.get('global', 'ticket_count'))
             if len(order_models) >= ticket_count:
                 isfinish = 'true'
+            if isfinish == 'true' and self.request.method=='POST':
+                raise ServerError(ServerError.FINISHED)
+
             if isfinish == 'true' and self.request.uri.find('/api/purchase/activity') != -1:
                 self.set_header('Content-type', 'text/html')
                 pre_tittle = utils.config.get('global', 'pre_tittle') 
