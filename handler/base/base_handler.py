@@ -43,7 +43,8 @@ def handler(fun):
             isfinish = utils.config.get('global', 'isfinish')
             if isfinish == 'true' and self.request.uri.find('/api/purchase/activity') != -1:
                 self.set_header('Content-type', 'text/html')
-                self.render('purchase/activity.html', isfinish=isfinish)
+                pre_tittle = utils.config.get('global', 'pre_tittle') 
+                self.render('purchase/activity.html', isfinish=isfinish, pre_tittle=pre_tittle)
                 return
             res = fun(self, *args, **kwargs)
             if isinstance(res, dict) and res.get('render'):
