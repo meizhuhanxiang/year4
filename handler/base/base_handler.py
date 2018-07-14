@@ -46,13 +46,17 @@ def handler(fun):
             ticket_count = int(utils.config.get('global', 'ticket_count'))
             if len(order_models) >= ticket_count:
                 isfinish = 'true'
-            if isfinish == 'true' and self.request.method=='POST':
+            if isfinish == 'true' and self.request.method=='POST' and self.request.uri.find('course') == -1:
                 raise ServerError(ServerError.FINISHED)
 
-            if isfinish == 'true' and self.request.uri.find('/api/purchase/activity') != -1:
+            user_model = self.model_config.first(UserModel, union_id=self.session.get('union_id'))  # type:UserModel
+            order_model = self.model_config.first(OrderModel, user_id=user_model.id,
+                                                      status=OrderModel.STATUS_WAIT_SEND)  # type: OrderModel
+
+            if isfinish == 'true' and self.request.uri.find('course') == -1:
                 self.set_header('Content-type', 'text/html')
                 pre_tittle = utils.config.get('global', 'pre_tittle') 
-                self.render('purchase/activity.html', isfinish=isfinish, pre_tittle=pre_tittle)
+                self.render('purchase/activity.html', isfinish=isfinish, pre_tittle=pre_tittle, status='cheer_payed' if order_model else 'cheer_undo')
                 return
             res = fun(self, *args, **kwargs)
             if isinstance(res, dict) and res.get('render'):
